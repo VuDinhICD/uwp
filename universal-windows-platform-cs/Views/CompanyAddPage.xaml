@@ -1,0 +1,124 @@
+﻿<Page
+    x:Class="universal_windows_platform_cs.Views.CompanyAddPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:loading="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.
+            -->
+            
+            <loading:Loading x:Name="LoadingControl" IsLoading="{Binding IsBusy}">
+                <!-- Loading screen content -->
+                Loading ...
+            </loading:Loading>
+            
+            <controls:TwoPaneView
+                x:Name="NewOrder"
+                Margin="0,48,0,100" >
+                <controls:TwoPaneView.Pane1>
+                    <StackPanel
+                        Width="450" >
+                        <TextBox
+                            x:Name="CompanyName"
+                            Header="CompanyName"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="CompanyNameText" />
+
+                        <TextBox
+                            x:Name="ContactName"
+                            Header="ContactName"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="ContactNameText" />
+
+                        <TextBox
+                            x:Name="ContactTitle"
+                            Header="ContactTitle"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="ContactTitleText" />
+
+                        <controls:NumberBox
+                            x:Name="Phone"
+                            Header="Phone"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="PhoneChanged" />
+
+                        <controls:NumberBox
+                            x:Name="Fax"
+                            Header="Fax"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="FaxChanged" />
+                    </StackPanel>
+                </controls:TwoPaneView.Pane1>
+
+                <controls:TwoPaneView.Pane2>
+                    <StackPanel Width="450" >
+                        <TextBox
+                            x:Name="Address"
+                            Header="Address"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="AddressText" />
+
+                        <TextBox
+                            x:Name="City"
+                            Header="City"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="CityText" />
+
+                        <TextBox
+                            x:Name="Country"
+                            Header="Country"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="CountryText" />
+
+                        <controls:NumberBox
+                            x:Name="PostalCode"
+                            Header="PostalCode"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="PostalCodeChanged" />
+                    </StackPanel>
+                </controls:TwoPaneView.Pane2>
+            </controls:TwoPaneView>
+
+            <Border
+                BorderThickness="1"
+                BorderBrush="#aba5a4"
+                Margin="-30,0,0,20"
+                Width="450"
+                Height="48"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" >
+                <AppBarButton
+                    Command="{x:Bind ViewModel.CreateCompanyCommand}"
+                    Icon="Save"
+                    Width="450"
+                    Height="48"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" />
+            </Border>
+
+            <TextBlock
+                Margin="30,0,0,37"
+                Text="Save"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" />
+        </Grid>
+    </Grid>
+</Page>

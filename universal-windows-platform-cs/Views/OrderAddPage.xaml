@@ -1,0 +1,121 @@
+﻿<Page
+    x:Class="universal_windows_platform_cs.Views.OrderAddPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:loading="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.
+            -->
+            <loading:Loading x:Name="LoadingControl" IsLoading="{Binding IsBusy}">
+                <!-- Loading screen content -->
+                <ProgressRing IsActive="True" />
+            </loading:Loading>
+            
+            <controls:TwoPaneView
+                x:Name="NewOrder"
+                Margin="0,48,0,100" >
+                <controls:TwoPaneView.Pane1>
+                    <StackPanel
+                        Width="450" >
+                        <ComboBox
+                            x:Name="Company"
+                            Header="Company"
+                            Margin="{StaticResource SmallTopMargin}"
+                            ItemsSource="{x:Bind ViewModel.CompanyName, Mode=OneWay}"
+                            Width="450"
+                            SelectionChanged="CompanyChanged" />
+
+                        <TextBox
+                            x:Name="ShipperName"
+                            Header="ShipperName"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="ShipperNameText" />
+
+                        <controls:NumberBox
+                            x:Name="ShipperPhone"
+                            Header="ShipperPhone"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="ShipperPhoneChanged" />
+                        
+                        <controls:NumberBox
+                            x:Name="Freight"
+                            Header="Freight"
+                            Value="NaN"
+                            PlaceholderText=""
+                            AcceptsExpression="True"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="FreightChanged" />
+
+                        <TextBox
+                            x:Name="ShipTo"
+                            Header="ShipTo"
+                            Text="{x:Bind ViewModel.ShipTo}"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            TextChanged="ShipToText" />
+                    </StackPanel>
+                </controls:TwoPaneView.Pane1>
+
+                <controls:TwoPaneView.Pane2>
+                    <StackPanel Width="450" >
+                        <DatePicker
+                            x:Name="OrderDate"
+                            Header="OrderDate"
+                            Margin="{StaticResource SmallLeftTopMarginDatePicker}"
+                            Width="450"
+                            SelectedDateChanged="OrderDateChanged" />
+
+                        <DatePicker
+                            x:Name="RequiredDate"
+                            Header="RequiredDate"
+                            Margin="{StaticResource SmallLeftTopMarginDatePicker}"
+                            Width="450"
+                            SelectedDateChanged="RequiredDateChanged" />
+
+                        <DatePicker
+                            x:Name="ShippedDate"
+                            Header="ShippedDate"
+                            Margin="{StaticResource SmallLeftTopMarginDatePicker}"
+                            Width="450"
+                            SelectedDateChanged="ShippedDateChanged" />
+                    </StackPanel>
+                </controls:TwoPaneView.Pane2>
+            </controls:TwoPaneView>
+
+            <Border
+                BorderThickness="1"
+                BorderBrush="#aba5a4"
+                Margin="-30,0,0,20"
+                Width="450"
+                Height="48"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" >
+                <AppBarButton
+                    Command="{x:Bind ViewModel.CreateOrderCommand}"
+                    Icon="Save"
+                    Width="450"
+                    Height="48"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" />
+            </Border>
+
+            <TextBlock
+                Margin="30,0,0,37"
+                Text="Save"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" />
+        </Grid>
+    </Grid>
+</Page>

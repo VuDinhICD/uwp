@@ -1,0 +1,79 @@
+﻿<Page
+    x:Class="universal_windows_platform_cs.Views.ProductListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+    
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <controls:Loading x:Name="LoadingControl" IsLoading="{Binding IsBusy}">
+                <!-- Loading screen content -->
+                <ProgressRing IsActive="True" />
+            </controls:Loading>
+
+            <TextBlock
+                Text="{x:Bind OrderName}"
+                Margin="{StaticResource OffsetHeader}"></TextBlock>
+
+            <AppBarButton
+                Icon="Add"
+                Label="New Order"
+                HorizontalAlignment="Right"
+                Command="{x:Bind ViewModel.AddProductCommand}" />
+
+            <controls:DataGrid
+                x:Name="ProductData"
+                x:Uid="DataTable"
+                AutoGenerateColumns="False"
+                GridLinesVisibility="Horizontal"
+                ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                HorizontalScrollBarVisibility="Visible"
+                CellEditEnded="UpdateProductData"
+                Margin="{StaticResource MarginDataGrid}" >
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn
+                        Binding="{Binding ProductId}"
+                        Header="ProductId"
+                        IsReadOnly="True" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding ProductName}"
+                        Header="ProductName" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Quantity}"
+                        Header="Quantity" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding UnitPrice}"
+                        Header="UnitPrice" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Total}"
+                        Header="Total"
+                        IsReadOnly="True"/>
+                    <controls:DataGridTextColumn
+                        Binding="{Binding CategoryName}"
+                        Header="CategoryName" />
+                    <controls:DataGridTextColumn
+                        Binding="{Binding CategoryDescription}"
+                        Header="CategoryDescription" />
+                    <controls:DataGridTemplateColumn>
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <AppBarButton
+                                    Height="48"
+                                    Icon="Delete"
+                                    Command="{Binding RemoveProductCommand}"
+                                    CommandParameter="{Binding ProductId}"
+                                    Click="ReloadPage" >
+                                </AppBarButton>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+        </Grid>
+    </Grid>
+</Page>

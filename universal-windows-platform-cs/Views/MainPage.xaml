@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="universal_windows_platform_cs.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:userControl="using:universal_windows_platform_cs.UserControl"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.
+            -->
+
+            <controls:Loading x:Name="LoadingControl" IsLoading="{Binding IsBusy}">
+                <!-- Loading screen content -->
+                <ProgressRing IsActive="True" />
+            </controls:Loading>
+
+            <StackPanel
+                Width="500"
+                VerticalAlignment="Center">
+                <TextBox
+                    x:Name="User"
+                    Header="User" />
+                <PasswordBox
+                    PasswordChar="*"
+                    x:Name="Password"
+                    Header="Password" />
+                <TextBlock
+                    x:Name="ErrorMessage"
+                    Foreground="Red"
+                    HorizontalAlignment="Center"
+                    Text="{Binding ErrorMessage, Mode=OneWay}" />
+                <Button
+                    HorizontalAlignment="Center"
+                    x:Name="Login"
+                    Content="Login"
+                    Margin="0,40,0,0"
+                    Command="{x:Bind ViewModel.LoginCommand}"
+                    CommandParameter="{x:Bind AccountInfo}"
+                    Click="SubmitAccount" />
+                <Button
+                    HorizontalAlignment="Center"
+                    x:Name="Forgot"
+                    Content="Reset password"
+                    Margin="0,20,0,0"
+                    Command="{x:Bind ViewModel.ResetPassCommand}"
+                    CommandParameter="{x:Bind AccountInfo}"
+                    Click="ForgotAccount" />
+            </StackPanel>
+
+            <userControl:IconControl
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,30,10,0"
+                Icon="Setting"
+                Command="{x:Bind ViewModel.MainViewCommand}" />
+        </Grid> 
+    </Grid>
+</Page>

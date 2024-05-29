@@ -1,0 +1,120 @@
+﻿<Page xmlns:my="using:Microsoft.UI.Xaml.Controls" 
+    x:Class="universal_windows_platform_cs.Views.OrderListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="using:universal_windows_platform_cs.Helpers"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <helpers:DateConverter x:Key="conv"/>
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea" Margin="{StaticResource SmallLeftRightMargin}">
+        <Grid>
+            <controls:Loading x:Name="LoadingControl" IsLoading="{Binding IsBusy}">
+                <!-- Loading screen content -->
+                <ProgressRing IsActive="True" />
+            </controls:Loading>
+            <Pivot>
+                <PivotItem Header="Order list">
+                    <controls:Expander
+                        HorizontalAlignment="Stretch"
+                        IsExpanded="False"
+                        ExpandDirection="Down"
+                        VerticalAlignment="Top"
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Width="Auto"
+                        >
+                        <StackPanel>
+                            <AppBarButton
+                                Icon="Add"
+                                Label="Add order"
+                                HorizontalAlignment="Right"
+                                Command="{x:Bind ViewModel.CreateOrderCommand}" />
+                            <controls:DataGrid
+                                Width="Auto"
+                                MinWidth="500"
+                                x:Name="OderData"
+                                x:Uid="DataTable"
+                                AutoGenerateColumns="False"
+                                GridLinesVisibility="Horizontal"
+                                ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                                CellEditEnded="UpdateOrderData"
+                                HorizontalScrollBarVisibility="Visible">
+
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTemplateColumn Header="Detail">
+                                        <controls:DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <AppBarButton
+                                                    Height="48"
+                                                    Command="{Binding NavigateCommand}"
+                                                    CommandParameter="{Binding OrderId}"
+                                                    Icon="List" >
+                                                </AppBarButton>
+                                            </DataTemplate>
+                                        </controls:DataGridTemplateColumn.CellTemplate>
+                                    </controls:DataGridTemplateColumn>
+
+                                    <controls:DataGridTextColumn
+                                    Binding="{Binding OrderId}"
+                                    Header="OrderId"
+                                    IsReadOnly="True" />
+
+                                    <controls:DataGridTextColumn
+                                    Binding="{Binding OrderDate, Converter={StaticResource conv}}"
+                                    Header="OrderDate"
+                                    IsReadOnly="True" />
+
+                                    <controls:DataGridTextColumn
+                                    Binding="{Binding Company}"
+                                    Header="Company"
+                                    IsReadOnly="True" />
+
+                                    <controls:DataGridTextColumn
+                                    Binding="{Binding ShipTo}"
+                                    Header="ShipTo"
+                                    IsReadOnly="True" />
+
+                                    <controls:DataGridTextColumn
+                                    x:Name="OrderTotal"
+                                    Binding="{Binding OrderTotal}"
+                                    IsReadOnly="True"
+                                    Header="OrderTotal" />
+
+                                    <controls:DataGridComboBoxColumn
+                                    x:Name="Status"
+                                    Header="Status"
+                                    Binding="{Binding Status}"
+                                    ItemsSource="{x:Bind ViewModel.OrderStatus, Mode=OneWay}" />
+
+                                    <controls:DataGridTemplateColumn Header="Delete">
+                                        <controls:DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <AppBarButton
+                                                    Height="48"
+                                                    Icon="Delete"
+                                                    Command="{Binding RemoveOrderCommand}"
+                                                    CommandParameter="{Binding OrderId}"
+                                                    Click="ReloadPage" >
+                                                </AppBarButton>
+                                            </DataTemplate>
+                                        </controls:DataGridTemplateColumn.CellTemplate>
+                                    </controls:DataGridTemplateColumn>
+                                </controls:DataGrid.Columns>
+                            </controls:DataGrid>
+                        </StackPanel>
+                    </controls:Expander>
+                </PivotItem>
+                <PivotItem Header="Unread" BorderBrush="AliceBlue">
+                    <TextBlock Text="unread emails go here." />
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Grid>
+</Page>

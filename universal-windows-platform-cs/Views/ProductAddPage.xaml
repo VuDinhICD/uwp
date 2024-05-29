@@ -1,0 +1,102 @@
+﻿<Page
+    x:Class="universal_windows_platform_cs.Views.ProductAddPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:loading="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.
+            -->
+            <loading:Loading x:Name="LoadingControl" IsLoading="{Binding IsBusy}">
+                <!-- Loading screen content -->
+                <ProgressRing IsActive="True" />
+            </loading:Loading>
+
+            <controls:TwoPaneView
+                    x:Name="NewProduct"
+                    Margin="0,48,0,100" >
+                <controls:TwoPaneView.Pane1>
+                    <StackPanel
+                        Width="450" >
+                        <TextBox
+                            x:Name="ProductName"
+                            Header="ProductName"
+                            Margin="{StaticResource SmallTopMargin}"
+                            TextChanged="ProductNameText" />
+
+                        <controls:NumberBox
+                            x:Name="Quantity"
+                            Header="Quantity"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="QuantityChanged" />
+
+                        <controls:NumberBox
+                            x:Name="UnitPrice"
+                            Header="UnitPrice"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            ValueChanged="UnitPriceChanged" />
+
+                        <TextBox
+                            x:Name="Total"
+                            Header="Total"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450"
+                            Text="{x:Bind ViewModel.Total}"
+                            IsReadOnly="True"
+                            TextChanged="TotalText" />
+                    </StackPanel>
+                </controls:TwoPaneView.Pane1>
+
+                <controls:TwoPaneView.Pane2>
+                    <StackPanel
+                        Width="450" >
+                        <TextBox
+                            x:Name="CategoryName"
+                            Header="CategoryName"
+                            Margin="{StaticResource SmallTopMargin}"
+                            TextChanged="CategoryNameText" />
+
+                        <TextBox
+                            x:Name="CategoryDescription"
+                            Header="CategoryDescription"
+                            Margin="{StaticResource SmallTopMargin}"
+                            Width="450" Height="130" TextChanged="CategoryDescriptionText" />
+                    </StackPanel>
+                </controls:TwoPaneView.Pane2>
+            </controls:TwoPaneView>
+
+            <Border
+                BorderThickness="1"
+                BorderBrush="#aba5a4"
+                Margin="-30,0,0,20"
+                Width="450"
+                Height="48"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" >
+                <AppBarButton
+                    Command="{x:Bind ViewModel.CreateProductCommand}"
+                    Icon="Save"
+                    Width="450"
+                    Height="48"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" />
+            </Border>
+
+            <TextBlock
+                Margin="30,0,0,37"
+                Text="Save"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" />
+        </Grid>
+    </Grid>
+</Page>

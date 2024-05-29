@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+	<OutputType>Exe</OutputType>
+	<StartupObject></StartupObject>
+	<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+	<CheckEolTargetFramework>false</CheckEolTargetFramework>
+  </PropertyGroup>
+
+   <ItemGroup>
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.18">
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+       <PrivateAssets>all</PrivateAssets>
+     </PackageReference>
+     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+     <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0" />
+     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+     <PackageReference Include="Npgsql" Version="4.1.12" />
+     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\universal-windows-platform-cs.Core\universal-windows-platform-cs.Core.csproj" />
+   </ItemGroup>
+
+   <ItemGroup>
+	  <None Include="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+   </ItemGroup>
+</Project>
